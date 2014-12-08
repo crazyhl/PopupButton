@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="normal">#fff</color>
+    <color name="press">#ff0</color>
+    <color name="focue">#666</color>
+</resources>
