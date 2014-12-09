@@ -9,5 +9,7 @@
         <attr name="normalIcon" format="reference" />
         <!-- 按下状态下的图标 -->
         <attr name="pressIcon" format="reference" />
+        <!-- 按钮的padding -->
+
     </declare-styleable>
 </resources>

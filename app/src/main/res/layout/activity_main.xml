@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="啦啦啦"
+        android:textSize="20dp"
         popupbtn:normalBg="@drawable/tab_bkg_line"
         popupbtn:normalIcon="@drawable/arrow_down_shop"
         popupbtn:pressBg="@drawable/tab_bkg_selected"

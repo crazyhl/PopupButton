@@ -25,6 +25,10 @@ public class PopupButton extends Button implements PopupWindow.OnDismissListener
     private Context context;
     private int screenWidth;
     private int screenHeight;
+    private int paddingTop;
+    private int paddingLeft;
+    private int paddingRight;
+    private int paddingBottom;
 
     public PopupButton(Context context) {
         super(context);
@@ -57,15 +61,11 @@ public class PopupButton extends Button implements PopupWindow.OnDismissListener
      * 初始话各种按钮样式
      */
     private void initBtn(final Context context) {
-        if (normalBg != -1) {
-            this.setBackgroundResource(normalBg);
-        }
-        if (normalIcon != -1) {
-            Drawable drawable = getResources().getDrawable(normalIcon);
-            /// 这一步必须要做,否则不会显示.
-            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-            this.setCompoundDrawables(null, null, drawable, null);
-        }
+        paddingTop = this.getPaddingTop();
+        paddingLeft = this.getPaddingLeft();
+        paddingRight = this.getPaddingRight();
+        paddingBottom = this.getPaddingBottom();
+        setNormal();
 
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         screenWidth = wm.getDefaultDisplay().getWidth();
@@ -121,6 +121,7 @@ public class PopupButton extends Button implements PopupWindow.OnDismissListener
     private void setPress() {
         if (pressBg != -1) {
             this.setBackgroundResource(pressBg);
+            this.setPadding(paddingLeft,paddingTop,paddingRight,paddingBottom);
         }
         if (pressIcon != -1) {
             Drawable drawable = getResources().getDrawable(pressIcon);
@@ -136,6 +137,7 @@ public class PopupButton extends Button implements PopupWindow.OnDismissListener
     private void setNormal() {
         if (normalBg != -1) {
             this.setBackgroundResource(normalBg);
+            this.setPadding(paddingLeft,paddingTop,paddingRight,paddingBottom);
         }
         if (normalIcon != -1) {
             Drawable drawable = getResources().getDrawable(normalIcon);
