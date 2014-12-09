@@ -1,13 +1,15 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:popupbtn="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="horizontal"
     tools:context=".MainActivity">
 
     <pw.h57.popupbuttonlibrary.PopupButton
         android:id="@+id/btn"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:text="啦啦啦"
         android:textSize="20dp"
@@ -16,4 +18,16 @@
         popupbtn:pressBg="@drawable/tab_bkg_selected"
         popupbtn:pressIcon="@drawable/arrow_up_shop"
         />
-</RelativeLayout>
+    <pw.h57.popupbuttonlibrary.PopupButton
+        android:id="@+id/btn2"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="按钮2"
+        android:textSize="20dp"
+        popupbtn:normalBg="@drawable/tab_bkg_line"
+        popupbtn:normalIcon="@drawable/arrow_down_shop"
+        popupbtn:pressBg="@drawable/tab_bkg_selected"
+        popupbtn:pressIcon="@drawable/arrow_up_shop"
+        />
+</LinearLayout>

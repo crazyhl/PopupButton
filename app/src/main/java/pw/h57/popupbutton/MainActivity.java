@@ -1,14 +1,14 @@
 package pw.h57.popupbutton;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.PopupWindow;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import pw.h57.popupbuttonlibrary.PopupButton;
 import pw.h57.popupbuttonlibrary.adapter.PopupAdapter;
@@ -16,7 +16,9 @@ import pw.h57.popupbuttonlibrary.adapter.PopupAdapter;
 
 public class MainActivity extends ActionBarActivity {
     private PopupButton btn;
+    private PopupButton btn2;
     private LayoutInflater inflater;
+    private List<String> cValues;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,28 +42,54 @@ public class MainActivity extends ActionBarActivity {
             }
         });
         btn.setPopupView(view);
-    }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        View view2 = inflater.inflate(R.layout.popup2,null);
+        ListView pLv = (ListView) view2.findViewById(R.id.parent_lv);
+        final ListView cLv = (ListView) view2.findViewById(R.id.child_lv);
+        List<String> pList = new ArrayList<>();
+        final List<List<String>> cList = new ArrayList<>();
+        for(int i = 0; i < 10; i ++) {
+            pList.add("p" + i);
+            List<String> t = new ArrayList<>();
+            for(int j = 0; j < 15; j++) {
+                t.add(pList.get(i) + "-c" + j);
+            }
+            cList.add(t);
         }
 
-        return super.onOptionsItemSelected(item);
+        cValues = new ArrayList<>();
+        cValues.addAll(cList.get(0));
+        final PopupAdapter pAdapter = new PopupAdapter(this,R.layout.popup_item,pList,R.drawable.normal,R.drawable.press2);
+        final PopupAdapter cAdapter = new PopupAdapter(this,R.layout.popup_item,cValues,R.drawable.normal,R.drawable.press);
+        pAdapter.setPressPostion(0);
+
+        pLv.setAdapter(pAdapter);
+        cLv.setAdapter(cAdapter);
+
+        pLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                pAdapter.setPressPostion(position);
+                pAdapter.notifyDataSetChanged();
+                cValues.clear();
+                cValues.addAll(cList.get(position));
+                cAdapter.notifyDataSetChanged();
+                cAdapter.setPressPostion(-1);
+                cLv.setSelection(0);
+            }
+        });
+
+        cLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                cAdapter.setPressPostion(position);
+                cAdapter.notifyDataSetChanged();
+                btn2.setText(cValues.get(position));
+                btn2.hidePopup();
+            }
+        });
+        btn2 = (PopupButton) findViewById(R.id.btn2);
+        btn2.setPopupView(view2);
     }
+
 }
