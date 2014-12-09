@@ -3,7 +3,7 @@ PopupButton
 
 模仿大众点评的筛选框
 
-![演示图片](http://cimple.qiniudn.com/fdsa.gif)
+![演示图片](https://github.com/crazyhl/PopupButton/blob/master/pic.gif)
 
 2014年12月9日
 想了一下popupwindow不返回了, 返回了容易被玩坏, 所以现在封装了一个方法, 用来隐藏弹出的菜单
