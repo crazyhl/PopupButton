@@ -25,18 +25,15 @@ public class PopupButton extends Button implements PopupWindow.OnDismissListener
     private Context context;
     private int screenWidth;
     private int screenHeight;
-    private boolean isInflateView;
 
     public PopupButton(Context context) {
         super(context);
         this.context = context;
-        isInflateView = false;
     }
 
     public PopupButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
-        isInflateView = false;
         initAttrs(context, attrs);
         initBtn(context);
     }
@@ -44,7 +41,6 @@ public class PopupButton extends Button implements PopupWindow.OnDismissListener
     public PopupButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.context = context;
-        isInflateView = false;
     }
 
     //初始化各种自定义参数
@@ -78,19 +74,25 @@ public class PopupButton extends Button implements PopupWindow.OnDismissListener
 
     }
 
-    public PopupWindow getPopupWindow() {
-        if (popupWindow == null) {
-            popupWindow = new PopupWindow(screenWidth, screenHeight);
+    /**
+     * 隐藏弹出框
+     */
+    public void hidePopup(){
+        if(popupWindow != null && popupWindow.isShowing()) {
+            popupWindow.dismiss();
         }
-        return popupWindow;
     }
 
-
+    /**
+     * 设置popupwindow的view
+     * @param view
+     */
     public void setPopupView(final View view) {
         this.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!isInflateView) {
+                if(popupWindow == null) {
+                    popupWindow = new PopupWindow(screenWidth,screenHeight);
                     LinearLayout layout = new LinearLayout(context);
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int) (screenHeight * 0.6));
                     view.setLayoutParams(params);
@@ -107,7 +109,6 @@ public class PopupButton extends Button implements PopupWindow.OnDismissListener
                             popupWindow.dismiss();
                         }
                     });
-                    isInflateView = true;
                 }
                 setPress();
                 popupWindow.showAsDropDown(PopupButton.this);
@@ -115,6 +116,9 @@ public class PopupButton extends Button implements PopupWindow.OnDismissListener
         });
     }
 
+    /**
+     * 设置选中时候的按钮状态
+     */
     private void setPress() {
         if (pressBg != -1) {
             this.setBackgroundResource(pressBg);
@@ -127,6 +131,9 @@ public class PopupButton extends Button implements PopupWindow.OnDismissListener
         }
     }
 
+    /**
+     * 设置正常模式下的按钮状态
+     */
     private void setNormal() {
         if (normalBg != -1) {
             this.setBackgroundResource(normalBg);

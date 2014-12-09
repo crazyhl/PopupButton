@@ -16,7 +16,6 @@ import pw.h57.popupbuttonlibrary.adapter.PopupAdapter;
 
 public class MainActivity extends ActionBarActivity {
     private PopupButton btn;
-    private PopupWindow window;
     private LayoutInflater inflater;
 
     @Override
@@ -24,7 +23,6 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btn = (PopupButton) findViewById(R.id.btn);
-        window = btn.getPopupWindow();
         inflater = LayoutInflater.from(this);
 
         View view = inflater.inflate(R.layout.popup,null);
@@ -38,7 +36,7 @@ public class MainActivity extends ActionBarActivity {
                 adapter.setPressPostion(position);
                 adapter.notifyDataSetChanged();
                 btn.setText(arr[position]);
-                window.dismiss();
+                btn.hidePopup();
             }
         });
         btn.setPopupView(view);
