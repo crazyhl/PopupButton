@@ -92,13 +92,12 @@ public class PopupButton extends Button implements PopupWindow.OnDismissListener
             @Override
             public void onClick(View v) {
                 if(popupWindow == null) {
-                    popupWindow = new PopupWindow(screenWidth,screenHeight);
                     LinearLayout layout = new LinearLayout(context);
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int) (screenHeight * 0.6));
                     view.setLayoutParams(params);
                     layout.addView(view);
                     layout.setBackgroundColor(Color.argb(60, 0, 0, 0));
-                    popupWindow.setContentView(layout);
+                    popupWindow = new PopupWindow(layout,screenWidth,screenHeight);
                     popupWindow.setFocusable(true);
                     popupWindow.setBackgroundDrawable(new BitmapDrawable());
                     popupWindow.setOutsideTouchable(true);
