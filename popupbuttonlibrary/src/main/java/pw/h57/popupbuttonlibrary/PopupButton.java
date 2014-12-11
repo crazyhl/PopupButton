@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
+import pw.h57.popupbuttonlibrary.inter.PopupButtonListener;
+
 /**
  * 自定义的带弹出框的按钮,类似于美团和大众点评的筛选框
  * Created by Chris on 2014/12/8.
@@ -29,6 +31,7 @@ public class PopupButton extends Button implements PopupWindow.OnDismissListener
     private int paddingLeft;
     private int paddingRight;
     private int paddingBottom;
+    private PopupButtonListener listener;
 
     public PopupButton(Context context) {
         super(context);
@@ -84,6 +87,14 @@ public class PopupButton extends Button implements PopupWindow.OnDismissListener
     }
 
     /**
+     * 设置自定义接口
+     * @param listener
+     */
+    public void setListener(PopupButtonListener listener) {
+        this.listener = listener;
+    }
+
+    /**
      * 设置popupwindow的view
      * @param view
      */
@@ -108,6 +119,9 @@ public class PopupButton extends Button implements PopupWindow.OnDismissListener
                             popupWindow.dismiss();
                         }
                     });
+                }
+                if(listener != null) {
+                    listener.onShow();
                 }
                 setPress();
                 popupWindow.showAsDropDown(PopupButton.this);
@@ -150,5 +164,8 @@ public class PopupButton extends Button implements PopupWindow.OnDismissListener
     @Override
     public void onDismiss() {
         setNormal();
+        if(listener != null) {
+            listener.onHide();
+        }
     }
 }
