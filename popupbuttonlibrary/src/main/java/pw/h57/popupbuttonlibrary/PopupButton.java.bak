@@ -58,7 +58,6 @@ public class PopupButton extends Button implements PopupWindow.OnDismissListener
         pressBg = typedArray.getResourceId(R.styleable.popupbtn_pressBg, -1);
         normalIcon = typedArray.getResourceId(R.styleable.popupbtn_normalIcon, -1);
         pressIcon = typedArray.getResourceId(R.styleable.popupbtn_pressIcon, -1);
-           typedArray.recycle();
     }
 
     /**
